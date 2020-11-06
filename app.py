@@ -3,23 +3,19 @@ from flask import Flask
 app =Flask(__name__)
 @app.route('/froyo')
 def choose_froyo():
-    """Shows a form to collect the user's Fro-Yo order."""
-    return """
-    <form action="/froyo_results" method="GET">
-        What is your favorite Fro-Yo flavor?<br><br>
-        <input type="text" name="flavor">
-        <input type="text" name="toppings">
-        <br/><br/>
-        <input type="submit" value="Submit!">
-    </form> """
+    context = {
+        'users_flavor': request.arg.get('flavor')
+        'users_toppings': request.arg.get('toppings')
+    }
+
+    return render_template('index.html',**context)
+
     
 @app.route('/froyo_results')
 def show_froyo_results():
-    users_froyo_flavor = request.args.get('flavor')
-    users_toppings = request.arg.get('toppings')
-    return f'You ordered {users_froyo_flavor} flavored Fro-Yo with toppings {users_toppings}!'
-
-
+    
+    return render_template('froyo.html')
+   
 @app.route('/favorites')
 def choose_favorites():
     """Shows a form to collect users favorite color, animal, and city."""
@@ -56,6 +52,9 @@ def secret_message():
 
 @app.route('/message_results')
 def show_message():
-    users_message = request.args.get('message')
+    users_message = request.forms.get('message')
     message_abc = .sort_letters(users_message) 
     return f"Here's your secret message {message_abc}" 
+
+if __name__ == '__main__':
+    app.run(debug=True)
