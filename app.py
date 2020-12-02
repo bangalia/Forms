@@ -4,7 +4,7 @@ app =Flask(__name__)
 @app.route('/froyo')
 def choose_froyo():
     context = {
-        'users_flavor': request.arg.get('flavor')
+        'users_flavor': request.arg.get('flavor'),
         'users_toppings': request.arg.get('toppings')
     }
 
