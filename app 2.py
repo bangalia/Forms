@@ -35,19 +35,37 @@ def show_froyo_results():
 @app.route('/favorites')
 def favorites():
     """Shows the user a form to choose their favorite color, animal, and city."""
-    
-    pass
+     return """
+    <form action="/favorite_results" method="GET">
+        What is your favorite color? <br/>
+        <input type="text" name="color"><br/>
+        What is your favorite animal? <br/>
+        <input type="text" name="animal"><br/>
+        What is your favorite city? <br/>
+        <input type="text" name="city">
+        <input type="submit" value="Submit">
+    </form>
+    """
 
 @app.route('/favorites_results')
 def favorites_results():
     """Shows the user a nice message using their form results."""
-    pass
+    user_color = request.args.get("color")
+    user_animal = request.args.get("animal")
+    user_city = request.args.get("city")
+    return f"Wow, I didn't know {user_color} {user_animal} lived in {user_city}!"
 
 @app.route('/secret_message')
 def secret_message():
     """Shows the user a form to collect a secret message. Sends the result via
     the POST method to keep it a secret!"""
-    pass
+    return """
+    <form action="/message_results" method="POST">
+        What's your secret message?</br>
+        <input type="text" name="message">
+        <input type="submit" value="Submit">
+    </form>
+    """
 
 @app.route('/message_results', methods=['POST'])
 def message_results():
