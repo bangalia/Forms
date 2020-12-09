@@ -5,11 +5,21 @@
     </head>
     <body>
         <!-- Your HTML code goes here! -->
+        <form action="/calculator_results" method="GET">
+            <p> Enter a number</p>
+            <input type="number" name="operand1">
+            <br> <p> Enter another number</p>
+            <input type="number" name="operand2">
 
+            <br> <p> Please choose your operation</p>
+            <select name="operation">
+                <option value="add">+</option>
+                <option value="subtract">-</option>
+                <option value="multiply">*</option>
+                <option value="divide">/</option>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
 
-
-
-
-        
     </body>
 </html>

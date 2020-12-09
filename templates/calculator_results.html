@@ -5,11 +5,17 @@
     </head>
     <body>
         <!-- Your HTML code goes here! -->
-
-
-
-
-
+        {% if math0peration == "add" %}
+            You chose to {{ math0peration }} {{ numberOne }} and {{ numberTwo }}. The sum is {{ numberOne|int + numberTwo|int }
+            
+        {% elif math0peration == "subtract" %}
+            You chose to {{ mathOperation }} {{ numberOne }} and {{ numberTwo }}. The difference is: {{ numberOne|int - numberTwo|int }}
+        
+        {% elif mathOperation == "multiply" %}
+            You chose to {{ mathOperation }} {{ numberOne }} and {{ numberTwo }}. The result is: {{ numberOne|int * numberTwo|int }}
+        {% else %}
+            You chose to {{ mathOperation }} {{ numberOne }} and {{ numberTwo }}. The result is: {{ numberOne|int / numberTwo|int }}
+        {% endif %}
         
     </body>
 </html>
