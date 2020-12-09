@@ -1,14 +1,20 @@
 from flask import Flask
 
 app =Flask(__name__)
+
+
+def sort_letters(message):
+    return "".joined(sorted(list(message)))
+
+
 @app.route('/froyo')
 def choose_froyo():
     context = {
-        'users_flavor': request.arg.get('flavor'),
-        'users_toppings': request.arg.get('toppings')
+        'users_flavor': request.args.get('flavor'),
+        'users_toppings': request.args.get('toppings')
     }
 
-    return render_template('index.html',**context)
+    return render_template('froyo.html',**context)
 
     
 @app.route('/froyo_results')
@@ -53,7 +59,7 @@ def secret_message():
 @app.route('/message_results')
 def show_message():
     users_message = request.forms.get('message')
-    message_abc = .sort_letters(users_message) 
+    message_abc = sort_letters(users_message) 
     return f"Here's your secret message {message_abc}" 
 
 if __name__ == '__main__':
