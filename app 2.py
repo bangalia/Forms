@@ -35,7 +35,7 @@ def show_froyo_results():
 @app.route('/favorites')
 def favorites():
     """Shows the user a form to choose their favorite color, animal, and city."""
-     return """
+    return """
     <form action="/favorite_results" method="GET">
         What is your favorite color? <br/>
         <input type="text" name="color"><br/>
@@ -70,30 +70,24 @@ def secret_message():
 @app.route('/message_results', methods=['POST'])
 def message_results():
     """Shows the user their message, with the letters in sorted order."""
-    pass
+    user_message = request.form.get("message")
+    user_message = sort_letters(user_message)
+    return f"Here is your secret message! {user_message}"
 
 @app.route('/calculator')
 def calculator():
     """Shows the user a form to enter 2 numbers and an operation."""
-    return """
-    <form action="/calculator_results" method="GET">
-        Please enter 2 numbers and select an operator.<br/><br/>
-        <input type="number" name="operand1">
-        <select name="operation">
-            <option value="add">+</option>
-            <option value="subtract">-</option>
-            <option value="multiply">*</option>
-            <option value="divide">/</option>
-        </select>
-        <input type="number" name="operand2">
-        <input type="submit" value="Submit!">
-    </form>
-    """
+    context = {
+        "numberOne": request.args.get("operand1"),
+        "numberTwo": request.args.get("operand2"),
+        "math0peration": request.args.get("operation")
+    }
+    return render_template("calculator_form.html", **context)
 
 @app.route('/calculator_results')
 def calculator_results():
     """Shows the user the result of their calculation."""
-    pass
+    
 
 
 # List of compliments to be used in the `compliments_results` route (feel free 
@@ -133,8 +127,13 @@ def compliments():
 @app.route('/compliments_results')
 def compliments_results():
     """Show the user some compliments."""
+    numCompliments = request.args.get("num_compliments")
+    limitedList = random.sample(list_of_compliments)
     context = {
         # TODO: Enter your context variables here.
+        "list_of_compliments": limitedList,
+        "users_name": request.args.get("users_name"),
+        "wants_compliments": request.args.get("wants_compliments")
     }
 
     return render_template('compliments_results.html', **context)
